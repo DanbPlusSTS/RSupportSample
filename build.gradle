@@ -1,0 +1,42 @@
+plugins {
+	id 'war'
+	id 'org.springframework.boot' version '2.7.18'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+bootJar { enabled = false }   // JAR 생성 비활성화
+war { enabled = true }        // WAR 생성 활성화
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '8'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'   // 내장 톰캣 사용
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'org.slf4j:slf4j-api:1.7.32'
+	
+	implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+	
+	
+	implementation 'javax.servlet:jstl'
+    providedRuntime 'javax.servlet:jstl'  // JSTL 지원 추가
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'  // JSP 지원 추가
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
